@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Exemplo de Menu SlideOut.js</title>
-    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Adicione esta linha -->
+    <title>Exemplo de Menu com SlideOut.js</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
     <style>
         body {
@@ -41,9 +41,17 @@
             text-decoration: none;
         }
 
+        .menu.is-open{
+            transform: translateX(0);
+        }
+
         .content {
             padding: 20px;
             transition: transform 0.3s ease;
+        }
+
+        .content.is-open{
+            transform: translateX(256px);
         }
 
         .toggle-button {
@@ -81,26 +89,9 @@
         const content = document.getElementById('content');
         const toggleButton = document.getElementById('toggle-button');
 
-        // Inicializa o Slideout
-        const slideout = new Slideout({
-            'panel': content,
-            'menu': menu,
-            'side': 'left',
-            'tolerance': 70
-        });
-
-        // Adiciona o evento de clique ao botão de alternância
-        toggleButton.addEventListener('click', function() {
-            slideout.toggle();
-        });
-
-        // Adiciona um evento para fechar o menu ao clicar fora dele
-        slideout.on('beforeopen', function() {
-            content.classList.add('is-open');
-        });
-
-        slideout.on('close', function() {
-            content.classList.remove('is-open');
+        toggleButton.addEventListener('click', function(){
+            menu.classList.toggle('is-open');
+            content.classList.toggle('is-open');
         });
     </script>
 </body>
