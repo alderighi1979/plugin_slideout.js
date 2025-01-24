@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplo de Menu SlideOut.js</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"> <!-- Adicione esta linha -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Impede o scroll da página quando o menu está aberto */
+        }
+
+        .menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            width: 256px;
+            background-color: #333;
+            color: #fff;
+            z-index: 1;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+        }
+
+        .menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .menu ul li {
+            padding: 15px;
+            border-bottom: 1px solid #444;
+        }
+
+        .menu ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .content {
+            padding: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .toggle-button {
+            display: inline-block;
+            margin: 20px;
+            padding: 10px 20px;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .toggle-button:hover{
+            border-radius: 5px;
+            background-color: darkgrey;
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/slideout/1.0.1/slideout.min.js"></script>
+</head>
+<body>
+    <div class="menu" id="menu">
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Sobre</a></li>
+            <li><a href="#">Produtos</a></li>
+            <li><a href="#">Contatos</a></li>
+        </ul>
+    </div>
+    <div class="content" id="content">
+        <div class="toggle-button" id="toggle-button">Menu</div>
+        <h1>Bem-vindo ao nosso site</h1>
+        <p>Esse é um exemplo de menu deslizante com Slideout.js</p>
+    </div>
+    <script>
+        const menu = document.getElementById('menu');
+        const content = document.getElementById('content');
+        const toggleButton = document.getElementById('toggle-button');
+
+        // Inicializa o Slideout
+        const slideout = new Slideout({
+            'panel': content,
+            'menu': menu,
+            'side': 'left',
+            'tolerance': 70
+        });
+
+        // Adiciona o evento de clique ao botão de alternância
+        toggleButton.addEventListener('click', function() {
+            slideout.toggle();
+        });
+
+        // Adiciona um evento para fechar o menu ao clicar fora dele
+        slideout.on('beforeopen', function() {
+            content.classList.add('is-open');
+        });
+
+        slideout.on('close', function() {
+            content.classList.remove('is-open');
+        });
+    </script>
+</body>
+</html>
